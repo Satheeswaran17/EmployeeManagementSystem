@@ -38,6 +38,9 @@ public class LaptopMapper {
      * @return {@link Laptop}. it contains all details of the laptop.
      */
     public static Laptop dtoToLaptop(LaptopDTO laptopDTO) {
+        if (laptopDTO == null) {
+            return null;
+        }
         return Laptop.builder()
                 .id(laptopDTO.getId())
                 .model(laptopDTO.getModel())

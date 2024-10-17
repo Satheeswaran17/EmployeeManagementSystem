@@ -3,7 +3,12 @@ package com.e5.employeemanagement.dto;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * <p>
- * It is DTO class to validate the Employee Details.
+ * It is DTO class to validate the Employee Detail.
  * </p>
  */
 @Builder

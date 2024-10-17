@@ -38,6 +38,9 @@ public class ToolMapper {
      * @return {@link Tool}. it contains all details of the tool.
      */
     public static Tool dtoToTool(ToolDTO toolDTO) {
+        if (toolDTO == null) {
+            return null;
+        }
         return Tool.builder()
                 .id(toolDTO.getId())
                 .name(toolDTO.getName())

@@ -43,7 +43,7 @@ public class EmployeeService {
     public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
         try {
             logger.debug("Entering addEmployee method");
-            if (employeeRepository.existsByPhoneNumberOrEmailAndIsDeletedFalse(employeeDTO.getPhoneNumber(),
+            if (employeeRepository.existsByPhoneNumberOrEmail(employeeDTO.getPhoneNumber(),
                     employeeDTO.getEmail())) {
                 throw new DuplicateKeyException("Employee phone number " + employeeDTO.getPhoneNumber()
                         + " Already present ");
@@ -54,7 +54,7 @@ public class EmployeeService {
         } catch (Exception e) {
             if(e instanceof DuplicateKeyException) {
                 logger.error("Employee phone number {} already exists ", employeeDTO.getPhoneNumber(), e);
-                throw new DuplicateKeyException(e.getMessage());
+                throw e;
             }
             logger.error("Issue with server ", e);
             throw new EmployeeManagementException("Issue with server ");
@@ -80,7 +80,7 @@ public class EmployeeService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.error("Employee id {} does not exist ", id, e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.error("Issue with server ", e);
             throw new EmployeeManagementException("Issue with server ");
@@ -132,7 +132,7 @@ public class EmployeeService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.error("Employee id {} not exists ", employeeDTO.getId(), e);
-                throw  new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.error("Issue with server ", e);
             throw new EmployeeManagementException("Issue with server ");
@@ -161,7 +161,7 @@ public class EmployeeService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.error("Employee id: {} not exist ", id, e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.error("Issue with server ", e);
             throw new EmployeeManagementException("Issue with server ");
@@ -180,8 +180,10 @@ public class EmployeeService {
      */
     public Employee getEmployee(int employeeId) {
         try {
-            logger.debug("Entering getEmployee method");
+            logger.info("Entering getEmployee method");
+            System.out.println("SS");
             Employee employee = employeeRepository.findByIdAndIsDeletedFalse(employeeId);
+            System.out.println("SS");
             if (employee == null) {
                 throw new NoSuchElementException("No Active Employee in DataBase with ID " + employeeId);
             }
@@ -190,7 +192,7 @@ public class EmployeeService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.error("Employee id : {} does not exist ", employeeId, e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.error("Issue with server ", e);
             throw new EmployeeManagementException("Internal server error");

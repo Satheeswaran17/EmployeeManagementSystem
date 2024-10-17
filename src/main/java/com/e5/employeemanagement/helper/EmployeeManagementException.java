@@ -17,4 +17,8 @@ public class EmployeeManagementException extends RuntimeException {
     public EmployeeManagementException(String message, Throwable err) {
         super(message, err);
     }
+
+    public EmployeeManagementException() {
+        super();
+    }
 }

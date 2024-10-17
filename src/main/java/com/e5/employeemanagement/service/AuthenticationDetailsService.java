@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.e5.employeemanagement.helper.AuthenticateException;
+import com.e5.employeemanagement.helper.EmployeeManagementException;
 import com.e5.employeemanagement.model.Users;
 import com.e5.employeemanagement.model.UserPrincipal;
 import com.e5.employeemanagement.repository.UserRepository;
@@ -36,8 +37,11 @@ public class AuthenticationDetailsService implements UserDetailsService {
                 throw new UsernameNotFoundException("User not found");
             }
             return new UserPrincipal(users);
-        } catch (UsernameNotFoundException e) {
-            throw new AuthenticateException(e.getMessage());
+        } catch (Exception e) {
+            if (e instanceof UsernameNotFoundException) {
+                throw new AuthenticateException(e.getMessage());
+            }
+            throw new EmployeeManagementException("Issue with service");
         }
     }
 }

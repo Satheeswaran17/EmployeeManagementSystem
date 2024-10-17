@@ -19,7 +19,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findAllByIsDeletedFalse(Pageable pageable);
 
-    boolean existsByPhoneNumberOrEmailAndIsDeletedFalse(long phoneNumber, String email);
+    boolean existsByPhoneNumberOrEmail(long phoneNumber, String email);
 }
 
 

@@ -57,10 +57,10 @@ public class LaptopService {
         } catch (Exception e) {
             if (e instanceof DuplicateKeyException) {
                 logger.warn("Laptop already exist for this Employee id {} ", employeeId, e);
-                throw new DuplicateKeyException(e.getMessage());
+                throw e;
             } else if (e instanceof NoSuchElementException) {
                 logger.warn("Employee id {} does not exist", employeeId, e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal server error", e);
             throw new EmployeeManagementException("Internal server error");
@@ -90,7 +90,7 @@ public class LaptopService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.warn(e.getMessage(), e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal server error", e);
             throw new EmployeeManagementException("Internal server error");
@@ -123,7 +123,7 @@ public class LaptopService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.warn(e.getMessage(), e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal server error", e);
             throw new EmployeeManagementException("Internal server error");
@@ -154,7 +154,7 @@ public class LaptopService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.warn(e.getMessage(), e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal server error", e);
             throw new EmployeeManagementException("Internal server error");

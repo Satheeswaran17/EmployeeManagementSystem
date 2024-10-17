@@ -51,7 +51,7 @@ public class TeamController {
      * @return {@link ResponseEntity} with the fetched team details and HTTP status OK.
      */
     @GetMapping
-    public ResponseEntity<Team> getTeamById(@PathVariable int employeeId) {
+    public ResponseEntity<TeamDTO> getTeamById(@PathVariable int employeeId) {
         return new ResponseEntity<>(teamService.getTeamById(employeeId), HttpStatus.OK);
     }
 

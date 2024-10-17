@@ -37,6 +37,9 @@ public class TeamMapper {
      * @return {@link Team}. it contains all details of the team.
      */
     public static Team dtoToTeam(TeamDTO teamDTO) {
+        if (teamDTO == null) {
+            return null;
+        }
         return Team.builder()
                 .id(teamDTO.getId())
                 .domain(teamDTO.getDomain())

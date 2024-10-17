@@ -52,8 +52,8 @@ public class ToolController {
      * @return {@link ResponseEntity} with the fetched list of tools details for specific employee and HTTP status OK.
      */
     @GetMapping
-    public ResponseEntity<List<Tool>> getToolById(@PathVariable int employeeId) {
-        return new ResponseEntity<>(toolService.getToolById(employeeId), HttpStatus.OK);
+    public ResponseEntity<List<Tool>> getToolsById(@PathVariable int employeeId) {
+        return new ResponseEntity<>(toolService.getToolsById(employeeId), HttpStatus.OK);
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.e5.employeemanagement.service;
 
+import com.e5.employeemanagement.helper.EmployeeManagementException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,9 +40,20 @@ public class UserService {
      * @return {@link UserDTO} it return user details without unique id.
      */
     public UserDTO register(UserDTO userDTO) {
-        Users users = UserMapper.dtoToUser(userDTO);
-        users.setPassword(encoder.encode(users.getPassword()));
-        return UserMapper.userToDTO(userRepository.save(users));
+        try {
+            Users users = UserMapper.dtoToUser(userDTO);
+            if(userRepository.existsByUserName(userDTO.getUserName()))
+            {
+                throw new DuplicateKeyException("Username already exists" + userDTO.getUserName());
+            }
+            users.setPassword(encoder.encode(users.getPassword()));
+            return UserMapper.userToDTO(userRepository.save(users));
+        } catch (Exception e) {
+            if(e instanceof DuplicateKeyException) {
+                throw e;
+            }
+            throw new EmployeeManagementException("Issue with server");
+        }
     }
 
     /**

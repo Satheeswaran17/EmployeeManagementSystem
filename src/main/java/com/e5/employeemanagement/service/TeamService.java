@@ -50,7 +50,7 @@ public class TeamService {
                 throw new DuplicateKeyException("Team already exists for this Employee Id:" + employeeId);
             }
             Team team = TeamMapper.dtoToTeam(teamDTO);
-            if (teamRepository.existsByLeadName(teamDTO.getLeadName())) {
+            if(teamRepository.existsByLeadName(teamDTO.getLeadName())) {
                 team = teamRepository.findByLeadName(teamDTO.getLeadName());
             }
             employee.setTeam(team);
@@ -60,10 +60,10 @@ public class TeamService {
         } catch (Exception e) {
             if (e instanceof DuplicateKeyException) {
                 logger.warn("Team already exists for this Employee id: {}", employeeId, e);
-                throw new DuplicateKeyException(e.getMessage());
+                throw e;
             } else if (e instanceof NoSuchElementException) {
                 logger.warn("Employee Id: {} does not exist", employeeId, e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal error", e);
             throw new EmployeeManagementException("Internal server error");
@@ -80,7 +80,7 @@ public class TeamService {
      * @throws NoSuchElementException if employee or team does not exist.
      * @throws EmployeeManagementException if any issue with server.
      */
-    public Team getTeamById(int employeeId) {
+    public TeamDTO getTeamById(int employeeId) {
         try {
             logger.debug("Entering getTeamById method");
             Employee employee = employeeService.getEmployee(employeeId);
@@ -88,11 +88,11 @@ public class TeamService {
                 throw new NoSuchElementException("Team does not exist for this Employee Id:" + employeeId);
             }
             logger.info("Team {} retrieved successfully", employee.getId());
-            return employee.getTeam();
+            return TeamMapper.teamToDTO(employee.getTeam());
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.warn(e.getMessage(), e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal error", e);
             throw new EmployeeManagementException("Internal server error");
@@ -118,7 +118,7 @@ public class TeamService {
                 throw new NoSuchElementException("Employee id " + employeeId + " has no Team");
             }
             Team team = TeamMapper.dtoToTeam(teamDTO);
-            if (teamRepository.existsByLeadName(teamDTO.getLeadName())) {
+            if(teamRepository.existsByLeadName(teamDTO.getLeadName())) {
                 team = teamRepository.findByLeadName(teamDTO.getLeadName());
             }
             employee.setTeam(team);
@@ -128,7 +128,7 @@ public class TeamService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.warn(e.getMessage(), e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal error", e);
             throw new EmployeeManagementException("Internal server error");
@@ -158,7 +158,7 @@ public class TeamService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.warn(e.getMessage(), e);
-                throw new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal error", e);
             throw new EmployeeManagementException("Internal server error");

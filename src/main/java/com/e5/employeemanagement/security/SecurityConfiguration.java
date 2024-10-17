@@ -30,7 +30,6 @@ public class SecurityConfiguration {
     @Autowired
     @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver handlerExceptionResolver;
-
     @Autowired
     private UserDetailsService userDetailsService;
 

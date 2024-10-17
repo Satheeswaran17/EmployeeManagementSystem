@@ -46,8 +46,8 @@ public class ToolService {
         try {
             Employee employee = employeeService.getEmployee(employeeId);
             Tool tool = ToolMapper.dtoToTool(toolDTO);
-            if (toolRepository.existsByNameAndVersion(toolDTO.getName(), toolDTO.getVersion())) {
-                tool = toolRepository.findByName(toolDTO.getName());
+            if (toolRepository.existsByNameAndVersion(tool.getName(), tool.getVersion())) {
+                tool = toolRepository.findByName(tool.getName());
             }
             employee.getTools().add(tool);
             employeeService.saveEmployee(employee);
@@ -55,7 +55,7 @@ public class ToolService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.error(e.getMessage(), e);
-                throw  new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal server error", e);
             throw new EmployeeManagementException("Internal server error");
@@ -72,7 +72,7 @@ public class ToolService {
      * @throws NoSuchElementException if employee does not exist.
      * @throws EmployeeManagementException if any issue with server.
      */
-    public List<Tool> getToolById(int employeeId) {
+    public List<Tool> getToolsById(int employeeId) {
         try {
             logger.debug("Entering getToolById method");
             Employee employee = employeeService.getEmployee(employeeId);
@@ -83,7 +83,7 @@ public class ToolService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.error(e.getMessage(), e);
-                throw  new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal server error", e);
             throw new EmployeeManagementException("Internal server error");
@@ -111,7 +111,7 @@ public class ToolService {
         } catch (Exception e) {
             if (e instanceof NoSuchElementException) {
                 logger.error(e.getMessage(), e);
-                throw  new NoSuchElementException(e.getMessage());
+                throw e;
             }
             logger.warn("Internal server error", e);
             throw new EmployeeManagementException("Internal server error");

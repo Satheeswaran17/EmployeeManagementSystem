@@ -47,8 +47,8 @@ public class EmployeeMapper {
                 .phoneNumber(employeeDto.getPhoneNumber())
                 .laptop(LaptopMapper.dtoToLaptop(employeeDto.getLaptop()))
                 .team(TeamMapper.dtoToTeam(employeeDto.getTeam()))
-                .tools(employeeDto.getTools().stream().map(ToolMapper::dtoToTool)
-                        .collect(Collectors.toList())).build();
+                .tools(employeeDto.getTools() != null ? employeeDto.getTools().stream().map(ToolMapper::dtoToTool)
+                        .collect(Collectors.toList()) : null).build();
     }
 
     /**
@@ -68,6 +68,6 @@ public class EmployeeMapper {
                 .phoneNumber(employee.getPhoneNumber())
                 .laptop(LaptopMapper.laptopToDTO(employee.getLaptop()))
                 .team(TeamMapper.teamToDTO(employee.getTeam()))
-                .tools(employee.getTools().stream().map(ToolMapper::toolToDTO).collect(Collectors.toList())).build();
+                .tools(employee.getTools() != null ? employee.getTools().stream().map(ToolMapper::toolToDTO).collect(Collectors.toList()) : null).build();
     }
 }
