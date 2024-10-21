@@ -68,9 +68,9 @@ public class ToolServiceTest {
         when(employeeService.getEmployee(anyInt())).thenReturn(employee);
         when(toolRepository.existsByNameAndVersion(toolDTO.getName(), toolDTO.getVersion())).thenReturn(false);
         doNothing().when(employeeService).saveEmployee(any(Employee.class));
-        ToolDTO addedTool =  toolService.addTool(toolDTO, employee.getId());
-        assertNotNull(addedTool);
-        assertEquals(addedTool.getName(), toolDTO.getName());
+        ToolDTO result =  toolService.addTool(toolDTO, employee.getId());
+        assertNotNull(result);
+        assertEquals(result.getName(), toolDTO.getName());
     }
 
     @Test

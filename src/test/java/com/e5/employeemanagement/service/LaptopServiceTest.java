@@ -65,9 +65,9 @@ public class LaptopServiceTest {
         employee.setLaptop(null);
         when(employeeService.getEmployee(anyInt())).thenReturn(employee);
         doNothing().when(employeeService).saveEmployee(employee);
-        LaptopDTO addedLaptop = laptopService.addLaptop(laptopDTO, employee.getId());
-        assertNotNull(addedLaptop);
-        assertEquals(addedLaptop.getModel(), laptop.getModel());
+        LaptopDTO result = laptopService.addLaptop(laptopDTO, employee.getId());
+        assertNotNull(result);
+        assertEquals(result.getModel(), laptop.getModel());
     }
 
     @Test
@@ -111,9 +111,9 @@ public class LaptopServiceTest {
     public void testUpdateLaptopSuccess() {
         when(employeeService.getEmployee(anyInt())).thenReturn(employee);
         doNothing().when(employeeService).saveEmployee(employee);
-        LaptopDTO updatedLaptop = laptopService.updateLaptop(laptopDTO, employee.getId());
-        assertNotNull(updatedLaptop);
-        assertEquals(updatedLaptop.getModel(), laptop.getModel());
+        LaptopDTO result = laptopService.updateLaptop(laptopDTO, employee.getId());
+        assertNotNull(result);
+        assertEquals(result.getModel(), laptop.getModel());
     }
 
     @Test

@@ -60,9 +60,9 @@ public class EmployeeServiceTest {
     public void testAddEmployeeSuccess() {
         when(employeeRepository.existsByPhoneNumberOrEmail(anyLong(), anyString())).thenReturn(false);
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
-        EmployeeDTO addedEmployee = employeeService.addEmployee(employeeDTO);
-        assertNotNull(addedEmployee);
-        assertEquals(addedEmployee.getEmail(), employeeDTO.getEmail());
+        EmployeeDTO result = employeeService.addEmployee(employeeDTO);
+        assertNotNull(result);
+        assertEquals(result.getEmail(), employeeDTO.getEmail());
     }
 
     @Test
@@ -80,9 +80,9 @@ public class EmployeeServiceTest {
     @Test
     public void testGetEmployeeByIdSuccess() {
         when(employeeRepository.findByIdAndIsDeletedFalse(anyInt())).thenReturn(employee);
-        EmployeeDTO fetchedEmployee = employeeService.getEmployeeById(employeeDTO.getId());
-        assertNotNull(fetchedEmployee);
-        assertEquals(employeeDTO.getId(), fetchedEmployee.getId());
+        EmployeeDTO result = employeeService.getEmployeeById(employeeDTO.getId());
+        assertNotNull(result);
+        assertEquals(employeeDTO.getId(), result.getId());
     }
 
     @Test
@@ -113,9 +113,9 @@ public class EmployeeServiceTest {
     public void testUpdateEmployeeSuccess() {
         when(employeeRepository.existsById(anyInt())).thenReturn(true);
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
-        EmployeeDTO updatedEmployee = employeeService.updateEmployee(employeeDTO);
-        assertNotNull(updatedEmployee);
-        assertEquals(employeeDTO.getId(), updatedEmployee.getId());
+        EmployeeDTO result = employeeService.updateEmployee(employeeDTO);
+        assertNotNull(result);
+        assertEquals(employeeDTO.getId(), result.getId());
     }
 
     @Test
@@ -151,9 +151,9 @@ public class EmployeeServiceTest {
     @Test
     public void testGetEmployeeSuccess() {
         when(employeeRepository.findByIdAndIsDeletedFalse(anyInt())).thenReturn(employee);
-        Employee fetchedEmployee = employeeService.getEmployee(employeeDTO.getId());
-        assertNotNull(fetchedEmployee);
-        assertEquals(employeeDTO.getId(), fetchedEmployee.getId());
+        Employee result = employeeService.getEmployee(employeeDTO.getId());
+        assertNotNull(result);
+        assertEquals(employeeDTO.getId(), result.getId());
     }
 
     @Test

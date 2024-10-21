@@ -67,9 +67,9 @@ public class TeamServiceTest {
         when(employeeService.getEmployee(anyInt())).thenReturn(employee);
         when(teamRepository.existsByLeadName(teamDTO.getLeadName())).thenReturn(false);
         doNothing().when(employeeService).saveEmployee(employee);
-        TeamDTO addedTeam = teamService.addTeam(teamDTO, employee.getId());
-        assertNotNull(addedTeam);
-        assertEquals(addedTeam.getLeadName(), teamDTO.getLeadName());
+        TeamDTO result = teamService.addTeam(teamDTO, employee.getId());
+        assertNotNull(result);
+        assertEquals(result.getLeadName(), teamDTO.getLeadName());
     }
 
     @Test
@@ -114,9 +114,9 @@ public class TeamServiceTest {
         when(employeeService.getEmployee(anyInt())).thenReturn(employee);
         when(teamRepository.existsByLeadName(teamDTO.getLeadName())).thenReturn(false);
         doNothing().when(employeeService).saveEmployee(employee);
-        TeamDTO updatedTeam = teamService.updateTeam(teamDTO, employee.getId());
-        assertNotNull(updatedTeam);
-        assertEquals(updatedTeam.getLeadName(), teamDTO.getLeadName());
+        TeamDTO result = teamService.updateTeam(teamDTO, employee.getId());
+        assertNotNull(result);
+        assertEquals(result.getLeadName(), teamDTO.getLeadName());
     }
 
     @Test

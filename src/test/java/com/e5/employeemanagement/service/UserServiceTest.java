@@ -53,9 +53,9 @@ public class UserServiceTest {
     public void testRegisterUser() {
         when(userRepository.existsByUserName(anyString())).thenReturn(false);
         when(userRepository.save(any())).thenReturn(users);
-        UserDTO registeredUser = userService.register(userDTO);
-        assertNotNull(registeredUser);
-        assertEquals(userDTO.getUserName(), registeredUser.getUserName());
+        UserDTO result = userService.register(userDTO);
+        assertNotNull(result);
+        assertEquals(userDTO.getUserName(), result.getUserName());
     }
 
     @Test

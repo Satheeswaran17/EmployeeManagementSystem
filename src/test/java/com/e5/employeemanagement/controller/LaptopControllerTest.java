@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doNothing;
@@ -50,6 +51,8 @@ public class LaptopControllerTest {
     public void testGetLaptopSuccess() {
         when(laptopService.getLaptopById(anyInt())).thenReturn(laptopDTO);
         ResponseEntity<LaptopDTO> response = laptopController.getLaptopById(employeeId);
+        assertNotNull(response);
+        assertEquals(laptopDTO, response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
@@ -57,6 +60,7 @@ public class LaptopControllerTest {
     public void testUpdateLaptopSuccess() {
         when(laptopService.updateLaptop(any(LaptopDTO.class), anyInt())).thenReturn(laptopDTO);
         ResponseEntity<LaptopDTO> response = laptopController.updateLaptop(laptopDTO, employeeId);
+        assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(laptopDTO, response.getBody());
     }
@@ -65,6 +69,7 @@ public class LaptopControllerTest {
     public void testRemoveLaptopSuccess() {
         doNothing().when(laptopService).removeLaptop(anyInt());
         ResponseEntity<HttpStatus> response = laptopController.removeLaptop(employeeId);
+        assertNotNull(response);
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 }
